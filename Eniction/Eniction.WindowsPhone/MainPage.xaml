@@ -1,0 +1,65 @@
+﻿<Page
+    xmlns:my="using:Dial"
+    x:Class="Eniction.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Eniction"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Control.Resources>
+        <local:TextConverter x:Key="myConverter"/>
+    </Control.Resources>
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock Text="AZURE ML" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="Prediction" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot" >
+            <my:Dial Height="200" Width="200" Name="Dial" Minimum="45.0" Maximum="135.0" HorizontalAlignment="Center" VerticalAlignment="Top" Value="{Binding Path=Temp, Mode=TwoWay}">
+                <my:Dial.Knob>
+                    <Grid>
+                        <Ellipse Fill="{StaticResource PhoneAccentBrush}"/>
+                        <Rectangle Height="5" Width="50" HorizontalAlignment="Left" Margin="0,10,0,0" Fill="{StaticResource PhoneBackgroundBrush}"/>
+                        <Rectangle Height="5" Width="50" HorizontalAlignment="Left" Margin="0,-10,0,0" Fill="{StaticResource PhoneBackgroundBrush}"/>
+                        <Ellipse Height="150" Width="150" Fill="{StaticResource PhoneBackgroundBrush}"/>
+                    </Grid>
+                </my:Dial.Knob>
+            </my:Dial>
+            <TextBlock x:Name="myTextblock" Text="{Binding ElementName=Dial, Path=Value, Converter={StaticResource myConverter}, ConverterParameter='\{0:0.#\}'}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource HeaderTextBlockStyle}" Margin="148,42,143,396" Width="109" TextAlignment="Center"  />
+            <Button x:Name="GetPrediction" Content="{Binding Path=Label, Mode=TwoWay}" HorizontalAlignment="Left" Margin="50,222,0,0" VerticalAlignment="Top" Click="GetPrediction_Click" RequestedTheme="Light" Height="100" Width="300">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/slapen1.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="GetPrediction_Copy" Content="{Binding Label2, Mode=TwoWay}" HorizontalAlignment="Left" Margin="50,303,0,0" VerticalAlignment="Top" Click="GetPrediction_Click2" RequestedTheme="Light" Height="100" Width="300">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/slapen2.png"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="GetPrediction_Copy1" Content="{Binding Label3, Mode=TwoWay}" HorizontalAlignment="Left" Margin="50,384,0,0" VerticalAlignment="Top" Click="GetPrediction_Click3" RequestedTheme="Light" Height="100" Width="300">
+                <Button.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="Assets/comfort1.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Grid>
+
+</Page>
